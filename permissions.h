@@ -11,7 +11,8 @@
 #include <memory>
 #include <string>
 
-enum Permission {
+enum Permission
+{
     // Users
     CREATE_STUDENT,
     READ_STUDENT,
@@ -47,7 +48,8 @@ enum Permission {
     DELETE_GRADE
 };
 
-enum Scope {
+enum Scope
+{
     // Action can be executed over the user's own resources
     SELF,
 
@@ -65,19 +67,22 @@ class User;
 
 // Each resource can handle how it is owned by an user
 // Resources and users are referenced with shared_ptr in order to handle inheritance
-class Resource {
+class Resource
+{
 public:
     virtual ~Resource() = default;
 
-    virtual bool isOwnedBy(const std::string& userId) const = 0;
+    virtual bool isOwnedBy(const std::string &userId) const = 0;
 };
 
-class User {
+class User
+{
 private:
     std::vector<Permission> permissions;
     std::string userId;
+
 public:
-    User(const std::string& userId);
+    User(const std::string &userId);
     virtual ~User() = default;
 
     bool hasPermission(Permission permission);
