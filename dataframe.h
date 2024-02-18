@@ -17,8 +17,9 @@
  * Class DataFrame
  *
  * This class contains data structures to handle data from CSV files and access/modify them easily.
-*/
-class DataFrame {
+ */
+class DataFrame
+{
 private:
     // Column names. First line of CSV files
     std::vector<std::string> header;
@@ -26,6 +27,7 @@ private:
     std::map<std::string, std::vector<std::string>> data;
 
     std::vector<size_t> getMaxColumnSizes();
+
 public:
     DataFrame();
     DataFrame(const std::string &fileName);
@@ -35,55 +37,55 @@ public:
      *
      * @param index Index, starting from 0
      * @returns Map of <column name, value>
-    */
-    std::map<std::string, std::string*> operator[](size_t index);
+     */
+    std::map<std::string, std::string *> operator[](size_t index);
 
     /**
      * Access a CSV data column, given the column name (key)
      *
      * @param key Column name specified in the CSV file header
      * @returns Vector of values as strings
-    */
+     */
     std::vector<std::string> &operator[](const std::string &key);
 
     /**
      * Gets the row size of the DataFrame. Equivalent to the number of columns
      *
      * @returns Number of values in rows
-    */
+     */
     size_t sizeRows();
 
     /**
      * Gets the column size of the DataFrame. Equivalent to the number of lines in the CSV file, excluding the header.
      *
      * @returns Number of values in rows
-    */
+     */
     size_t sizeCols();
 
     /**
      * Erases all data in the DataFrame
-    */
+     */
     void clear();
 
     /**
      * Initializes the DataFrame with the header
      *
      * @param header Header as a vector <string>
-    */
+     */
     void initialize(const std::vector<std::string> &header);
 
     /**
      * Adds a line of values to the end of the DataFrame
      *
      * @param row Map of <column name, value>
-    */
+     */
     void append(const std::map<std::string, std::string> &row);
 
     /**
      * Removes a row of the DataFrame given its index
      *
      * @param index Index of the row to be removed
-    */
+     */
     void remove(size_t index);
 
     /**
@@ -91,7 +93,7 @@ public:
      *
      * @param fileName Name of the CSV file
      * @returns Status code, where 0 is success
-    */
+     */
     int load(const std::string &fileName);
 
     /**
@@ -99,15 +101,15 @@ public:
      *
      * @param fileName Name of the CSV file
      * @returns Status code, where 0 is success
-    */
+     */
     int save(const std::string &fileName);
 
     /**
      * Prints DataFrame as a table.
      *
      * @param out Stream to output to. Default is std::cout
-    */
-    void print(std::ostream& out = std::cout);
+     */
+    void print(std::ostream &out = std::cout);
 };
 
 #endif
