@@ -10,4 +10,7 @@ configure_file(assets/studentdata.csv assets/studentdata.csv COPYONLY)
 configure_file(assets/teacherdata.csv assets/teacherdata.csv COPYONLY)
 
 
-add_executable(${PROJECT_NAME} gradebook.cpp dataframe.cpp permissions.cpp)
+add_executable(${PROJECT_NAME}  gradebook.cpp 
+                                dataframe.cpp 
+                                permissions.cpp 
+                                exceptions.cpp)

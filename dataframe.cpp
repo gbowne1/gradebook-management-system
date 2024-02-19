@@ -6,29 +6,35 @@
 
 DataFrame::DataFrame() {}
 
-DataFrame::DataFrame(const std::string &fileName) {
+DataFrame::DataFrame(const std::string &fileName)
+{
     this->load(fileName);
 }
 
-std::map<std::string, std::string*> DataFrame::operator[](size_t index) {
-    std::map<std::string, std::string*> series;
+std::map<std::string, std::string *> DataFrame::operator[](size_t index)
+{
+    std::map<std::string, std::string *> series;
 
-    for (auto it = this->data.begin(); it != this->data.end(); it++) {
+    for (auto it = this->data.begin(); it != this->data.end(); it++)
+    {
         series[it->first] = &it->second[index];
     }
 
     return series;
 }
 
-std::vector<std::string> &DataFrame::operator[](const std::string &key) {
+std::vector<std::string> &DataFrame::operator[](const std::string &key)
+{
     return this->data[key];
 }
 
-size_t DataFrame::sizeRows() {
+size_t DataFrame::sizeRows()
+{
     return this->data.size();
 }
 
-size_t DataFrame::sizeCols() {
+size_t DataFrame::sizeCols()
+{
     auto it = this->data.begin();
     if (it == this->data.end())
         return 0;
@@ -36,37 +42,45 @@ size_t DataFrame::sizeCols() {
     return it->second.size();
 }
 
-void DataFrame::clear() {
+void DataFrame::clear()
+{
     this->data.clear();
     this->header.clear();
 }
 
-void DataFrame::initialize(const std::vector<std::string> &header) {
+void DataFrame::initialize(const std::vector<std::string> &header)
+{
     if (this->header.size() > 0)
         this->header.clear();
 
     if (this->data.size() > 0)
         this->data.clear();
 
-    for (const std::string &label : header) {
+    for (const std::string &label : header)
+    {
         this->header.push_back(label);
         this->data[label] = std::vector<std::string>();
     }
 }
 
-void DataFrame::append(const std::map<std::string, std::string> &row) {
-    if (!this->header.size()) {
+void DataFrame::append(const std::map<std::string, std::string> &row)
+{
+    if (!this->header.size())
+    {
         std::vector<std::string> header;
-        for (const auto &it : row) {
+        for (const auto &it : row)
+        {
             header.push_back(it.first);
         }
         this->initialize(header);
     }
 
-    for (auto it = this->data.begin(); it != this->data.end(); it++) {
+    for (auto it = this->data.begin(); it != this->data.end(); it++)
+    {
         std::string key = it->first;
         std::vector<std::string> &col = it->second;
-        if (!row.count(key)) {
+        if (!row.count(key))
+        {
             col.push_back("");
             continue;
         }
@@ -75,18 +89,23 @@ void DataFrame::append(const std::map<std::string, std::string> &row) {
     }
 }
 
-void DataFrame::remove(size_t index) {
-    for (auto it = this->data.begin(); it != this->data.end(); it++) {
+void DataFrame::remove(size_t index)
+{
+    for (auto it = this->data.begin(); it != this->data.end(); it++)
+    {
         it->second.erase(it->second.begin() + index);
     }
 }
 
-std::vector<size_t> DataFrame::getMaxColumnSizes() {
+std::vector<size_t> DataFrame::getMaxColumnSizes()
+{
     std::vector<size_t> columnSizes;
 
-    for (const std::string& key : this->header) {
+    for (const std::string &key : this->header)
+    {
         size_t max = key.size();
-        for (const std::string& value : this->data[key]) {
+        for (const std::string &value : this->data[key])
+        {
             size_t strSize = value.size();
             if (strSize > max)
                 max = strSize;
@@ -97,7 +116,8 @@ std::vector<size_t> DataFrame::getMaxColumnSizes() {
     return columnSizes;
 }
 
-void DataFrame::print(std::ostream& out) {
+void DataFrame::print(std::ostream &out)
+{
     if (!this->header.size())
         return;
 
@@ -115,7 +135,8 @@ void DataFrame::print(std::ostream& out) {
 
     // Print header
     out << "| ";
-    for (int i = 0; i < this->header.size(); i++) {
+    for (int i = 0; i < this->header.size(); i++)
+    {
         out << std::setw(columnSizes[i]) << this->header[i] << " | ";
     }
 
@@ -126,10 +147,12 @@ void DataFrame::print(std::ostream& out) {
     out << std::endl;
 
     // Print data
-    for (int i = 0; i < this->data[this->header[0]].size(); i++) {
+    for (int i = 0; i < this->data[this->header[0]].size(); i++)
+    {
         out << "| ";
-        for (int j = 0; j < this->header.size(); j++) {
-            const std::string& key = this->header[j];
+        for (int j = 0; j < this->header.size(); j++)
+        {
+            const std::string &key = this->header[j];
             out << std::setw(columnSizes[j]) << this->data[key][i] << " | ";
         }
 
@@ -142,7 +165,8 @@ void DataFrame::print(std::ostream& out) {
     out << std::endl;
 }
 
-int DataFrame::load(const std::string &fileName) {
+int DataFrame::load(const std::string &fileName)
+{
     std::ifstream ifs(fileName);
 
     if (!ifs.is_open())
@@ -151,11 +175,14 @@ int DataFrame::load(const std::string &fileName) {
     std::string line, cell;
     size_t index = 0;
 
-    while (getline(ifs, line)) {
+    while (getline(ifs, line))
+    {
         size_t rowIndex = 0;
         std::stringstream str(line);
-        while (getline(str, cell, ',')) {
-            if (index == 0) {
+        while (getline(str, cell, ','))
+        {
+            if (index == 0)
+            {
                 this->header.push_back(cell);
                 continue;
             }
@@ -170,14 +197,17 @@ int DataFrame::load(const std::string &fileName) {
     return 0;
 }
 
-int DataFrame::save(const std::string &fileName) {
+int DataFrame::save(const std::string &fileName)
+{
     if (!this->header.size())
         return 1;
 
     std::ofstream ofs(fileName);
-    for (const std::string& key : this->header) {
+    for (const std::string &key : this->header)
+    {
         // Check if key is the last one in header
-        if (key == this->header[this->header.size()-1]) {
+        if (key == this->header[this->header.size() - 1])
+        {
             ofs << key << std::endl;
             continue;
         }
@@ -185,10 +215,13 @@ int DataFrame::save(const std::string &fileName) {
         ofs << key << ",";
     }
 
-    for (size_t i = 0; i < this->sizeCols(); i++) {
-        for (const std::string& key : this->header) {
+    for (size_t i = 0; i < this->sizeCols(); i++)
+    {
+        for (const std::string &key : this->header)
+        {
             // Check if key is the last one in header
-            if (key == this->header[this->header.size()-1]) {
+            if (key == this->header[this->header.size() - 1])
+            {
                 ofs << this->data[key][i] << std::endl;
                 continue;
             }
