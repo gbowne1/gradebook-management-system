@@ -1,18 +1,50 @@
 #include "permissions.h"
 
 #include <algorithm>
+#include <unordered_set>
 
 User::User(const std::string &userId)
-    : userId(userId)
+	: userId(userId), ownedResourceIds() // Initialize ownedResourceIds
 {
 }
 
-bool User::hasPermission(Permission permission)
+Scope User::getUserScope() const
 {
-    return (std::find(this->permissions.begin(), this->permissions.end(), permission) != this->permissions.end());
+	if (isAdmin())
+	{
+		return Scope::ANY; // Administrators have access to any resource
+	}
+	else if (isTeacher())
+	{
+		return Scope::OWNED_CLASSES; // Teachers have access to resources belonging to classes they own
+	}
+	else
+	{
+		return Scope::OWNED_RESOURCE; // Other users have access to resources they created
+	}
+}
+
+bool User::hasPermission(Permission permission, Scope scope)
+{
+	// Create a PermissionScope object to search for
+	PermissionScope searchPermissionScope = {permission, scope};
+
+	// Check if the user has the permission with the correct scope
+	if (permissionScopes.find(searchPermissionScope) == permissionScopes.end())
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void User::addOwnedResource(const std::string &resourceId)
+{
+	ownedResourceIds.insert(resourceId);
 }
 
 bool User::ownsResource(std::shared_ptr<Resource> resource)
 {
-    return resource->isOwnedBy(this->userId);
+	// Check ownership based on the owned resource IDs
+	return ownedResourceIds.count(resource->getResourceId()) > 0;
 }
