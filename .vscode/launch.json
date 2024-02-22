@@ -8,8 +8,8 @@
 		"args": [],
 		"stopAtEntry": false,
 		"externalConsole": false,
-		"cwd": "",
-		"program": "",
+		"cwd": "${workspaceFolder}/build",
+		"program": "${workspaceFolder}/build/gradebook",
 		"MIMode": "gdb",
 		"miDebuggerPath": "gdb",
 		"setupCommands": [
