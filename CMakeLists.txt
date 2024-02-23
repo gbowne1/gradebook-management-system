@@ -1,16 +1,17 @@
-cmake_minimum_required(VERSION 3.0)
-
+cmake_minimum_required(VERSION 3.14)
 project(gradebook)
 
-# Copy CSV files
-configure_file(assets/assignmentdata.csv assets/assignmentdata.csv COPYONLY)
-configure_file(assets/classdata.csv assets/classdata.csv COPYONLY)
-configure_file(assets/grades.csv assets/grades.csv COPYONLY)
-configure_file(assets/studentdata.csv assets/studentdata.csv COPYONLY)
-configure_file(assets/teacherdata.csv assets/teacherdata.csv COPYONLY)
+# Setup C++ standards
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(TESTING OFF CACHE STRING "Enable testing [ON/OFF]")
 
-add_executable(${PROJECT_NAME}  gradebook.cpp 
-                                dataframe.cpp 
-                                permissions.cpp 
-                                exceptions.cpp)
+# Setup project
+if(${TESTING})
+    set(BUILD_LIBRARY ON)
+    add_subdirectory(gradebook)
+    add_subdirectory(tests)
+else()
+    add_subdirectory(gradebook)
+endif()

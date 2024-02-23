@@ -1,24 +1,43 @@
 {
 	"version": "0.2.0",
 	"configurations": [
-	  {
-		"name": "C/C++ Runner: Debug Session",
-		"type": "cppdbg",
-		"request": "launch",
-		"args": [],
-		"stopAtEntry": false,
-		"externalConsole": false,
-		"cwd": "",
-		"program": "",
-		"MIMode": "gdb",
-		"miDebuggerPath": "gdb",
-		"setupCommands": [
-		  {
-			"description": "Enable pretty-printing for gdb",
-			"text": "-enable-pretty-printing",
-			"ignoreFailures": true
-		  }
-		]
-	  }
+		{
+		  "name": "Run GradeBook (Debug)",
+		  "type": "cppdbg",
+		  "request": "launch",
+		  "args": [],
+		  "stopAtEntry": false,
+		  "externalConsole": false,
+		  "cwd": "${workspaceFolder}/build/gradebook",
+		  "program": "${workspaceFolder}/build/gradebook/gradebook",
+		  "MIMode": "gdb",
+		  "miDebuggerPath": "gdb",
+		  "setupCommands": [
+			{
+			  "description": "Enable pretty-printing for gdb",
+			  "text": "-enable-pretty-printing",
+			  "ignoreFailures": true
+			}
+		  ]
+		},
+		{
+		  "name": "Test GradeBook",
+		  "type": "cppdbg",
+		  "request": "launch",
+		  "args": [],
+		  "stopAtEntry": false,
+		  "externalConsole": false,
+		  "cwd": "${workspaceFolder}/build/tests",
+		  "program": "${workspaceFolder}/build/tests/gradebook_test",
+		  "MIMode": "gdb",
+		  "miDebuggerPath": "gdb",
+		  "setupCommands": [
+			{
+			  "description": "Enable pretty-printing for gdb",
+			  "text": "-enable-pretty-printing",
+			  "ignoreFailures": true
+			}
+		  ]
+		}
 	]
   }

@@ -2,7 +2,11 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <iostream>
 #include <vector>
+#include <string>
+#include <time.h>
+#include <ctime>
 #include <map>
 
 template <typename T, typename U>
@@ -17,18 +21,8 @@ std::vector<T> getMapValues(const std::map<U, T> map)
     return values;
 }
 
-std::string timeToString(time_t time)
-{
-    char dueDateChr[11];
-    std::strftime(dueDateChr, sizeof(dueDateChr), "%Y-%m-%d", std::localtime(&time));
-    return dueDateChr;
-}
+std::string timeToString(time_t time);
 
-void waitForKey()
-{
-    std::cout << "Press ENTER to continue...";
-    std::cin.ignore();
-    std::getchar();
-}
+void waitForKey();
 
 #endif

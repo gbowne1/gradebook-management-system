@@ -3,7 +3,8 @@
         {
             "name": "linux-gcc-x64",
             "includePath": [
-                "${workspaceFolder}/**",
+                "${workspaceFolder}/gradebook/include/**",
+                "${workspaceFolder}/build/_deps/**",
                 "/usr/include/**",
                 "/usr/local/include/**"
             ],
