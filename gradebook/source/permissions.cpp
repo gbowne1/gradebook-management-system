@@ -1,4 +1,4 @@
-#include "permissions.h"
+#include "../include/permissions.h"
 
 #include <algorithm>
 #include <unordered_set>
@@ -34,7 +34,7 @@ bool User::hasPermission(Permission permission, Scope scope)
 	{
 		return false;
 	}
-
+	//TODO Add a check if the user has the permission with the correct scope
 	return true;
 }
 

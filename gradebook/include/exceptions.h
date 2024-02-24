@@ -1,9 +1,9 @@
-
 #ifndef EXCEPTIONS_H
 #define EXCEPTIONS_H
 
 #include <exception>
 #include <string>
+
 
 class GradeBookException : public std::exception
 {
@@ -20,7 +20,7 @@ protected:
 class GBResourceNotFoundException : public GradeBookException
 {
 public:
-    GBResourceNotFoundException(const std::string &message);
+    GBResourceNotFoundException(const std::string &message, const std::string &resourceId);
     virtual ~GBResourceNotFoundException() = default;
 };
 

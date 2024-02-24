@@ -1,4 +1,4 @@
-#include "dataframe.h"
+#include "../include/dataframe.h"
 
 #include <fstream>
 #include <sstream>
@@ -91,10 +91,19 @@ void DataFrame::append(const std::map<std::string, std::string> &row)
 
 void DataFrame::remove(size_t index)
 {
+	if (index >= this->sizeRows()) {
+        throw std::out_of_range("Index out of range in DataFrame::remove");
+    }
+
     for (auto it = this->data.begin(); it != this->data.end(); it++)
     {
         it->second.erase(it->second.begin() + index);
     }
+}
+
+bool DataFrame::hasColumn(const std::string &columnName) const
+{
+    return this->data.find(columnName) != this->data.end();
 }
 
 std::vector<size_t> DataFrame::getMaxColumnSizes()
@@ -165,12 +174,19 @@ void DataFrame::print(std::ostream &out)
     out << std::endl;
 }
 
+/**
+ * Loads data from a CSV file into the DataFrame.
+ * @param fileName The name of the CSV file.
+ * @return  0 on success,  1 on failure (e.g., file not found).
+ */
+
 int DataFrame::load(const std::string &fileName)
 {
     std::ifstream ifs(fileName);
 
-    if (!ifs.is_open())
-        return 1;
+    if (!ifs.is_open()) {
+        throw std::runtime_error("Failed to open file: " + fileName);
+    }
 
     std::string line, cell;
     size_t index = 0;
