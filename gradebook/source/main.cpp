@@ -1,13 +1,13 @@
-#include "gradebook.h"
-#include "exceptions.h"
-#include "utils.h"
+#include "../include/gradebook.h"
+#include "../include/exceptions.h"
+#include "../include/utils.h"
 
 int main(int argc, char const *argv[])
 {
     GradeBook gradebook;
+	int choice;
 
-    int choice;
-    while (true)
+	while (true)
     {
         std::cout << "1. Load Grades\n";
         std::cout << "2. Save Grades\n";
@@ -33,7 +33,7 @@ int main(int argc, char const *argv[])
         std::cout << "Choose an option: ";
         std::cin >> choice;
 
-        // TODO: Probably put each of these cases into functions for better readability
+        // TODO Probably put each of these cases into functions for better readability
         switch (choice)
         {
         case 1:

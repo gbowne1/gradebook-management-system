@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.10)
 
 # Setup C++ standards
 set(CMAKE_CXX_STANDARD 14)
@@ -30,7 +30,7 @@ message(BUILD_LIBRARY ${BUILD_LIBRARY})
 if(${BUILD_LIBRARY})
     add_library(${PROJECT_NAME} ${TARGET_SOURCES})
 else()
-    add_executable(${PROJECT_NAME}  ${CMAKE_CURRENT_SOURCE_DIR}/source/main.cpp 
+    add_executable(${PROJECT_NAME}  ${CMAKE_CURRENT_SOURCE_DIR}/source/main.cpp
                                     ${TARGET_SOURCES}
     )
 endif()
