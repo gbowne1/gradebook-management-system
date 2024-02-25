@@ -23,14 +23,23 @@ FetchContent_MakeAvailable(googletest)
 
 set(TEST_BUNDLE ${PROJECT_NAME}_test)
 
-file(GLOB SOURCES tests/*.cpp)
+set(TARGET_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+file(GLOB SOURCES_TESTS src/tests/*.cpp)
+file(GLOB SOURCES_FIXTURES src/fixtures/*.cpp)
 
 enable_testing()
 # Compile all source files in this folder into one target--test bundle
-add_executable(${TEST_BUNDLE} ${SOURCES})
+add_executable(${TEST_BUNDLE} ${SOURCES_TESTS}
+                              ${SOURCES_FIXTURES}
+)
 
-# GradeBook header path
-include_directories(${TARGET_INCLUDE_DIR})
+# Test include directories
+target_include_directories(${TEST_BUNDLE}
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/exports>
+        ${TARGET_INCLUDE_DIR}
+)
 
 # Specify which targets the test bundle depends on
 target_link_libraries(${TEST_BUNDLE} ${PROJECT_NAME} GTest::gtest_main)

@@ -41,7 +41,7 @@ void GradeBook::removeTeacher(const std::string &teacherID)
 Teacher GradeBook::getTeacher(const std::string &teacherID) const
 {
 	if (!this->teachers.count(teacherID))
-		throw GBResourceNotFoundException("Teacher with ID " + teacherID + " was not found!");
+		throw GBResourceNotFoundException("Teacher", teacherID);
 
 	return this->teachers.at(teacherID);
 }
@@ -79,7 +79,7 @@ void GradeBook::removeStudent(const std::string &studentID)
 Student GradeBook::getStudent(const std::string &studentID) const
 {
 	if (!this->students.count(studentID))
-		throw GBResourceNotFoundException("Student with ID " + studentID + " was not found!");
+		throw GBResourceNotFoundException("Student", studentID);
 
 	return this->students.at(studentID);
 }
@@ -117,7 +117,7 @@ void GradeBook::removeClass(const std::string &classID)
 Class GradeBook::getClass(const std::string &classID) const
 {
 	if (!this->classes.count(classID))
-		throw GBResourceNotFoundException("Class with ID " + classID + " was not found!");
+		throw GBResourceNotFoundException("Class", classID);
 
 	return this->classes.at(classID);
 }
@@ -164,7 +164,7 @@ void GradeBook::removeAssignment(const std::string &assignmentID)
 Assignment GradeBook::getAssignment(const std::string &assignmentID) const
 {
 	if (!this->assignments.count(assignmentID))
-		throw GBResourceNotFoundException("Assignment with ID " + assignmentID + " was not found!");
+		throw GBResourceNotFoundException("Assignment", assignmentID);
 
 	return this->assignments.at(assignmentID);
 }
@@ -201,7 +201,7 @@ Grade GradeBook::getGrade(const std::string &assignmentID, const std::string &st
 {
 	auto key = std::make_pair(assignmentID, studentID);
 	if (!this->grades.count(key))
-		throw GBResourceNotFoundException("Grade with assignment ID " + assignmentID + " and student ID " + studentID + " was not found!");
+		throw GBResourceNotFoundException("Grade", "Assignment: " + assignmentID + ", Student: " + studentID);
 
 	return this->grades.at(key);
 }
@@ -214,14 +214,14 @@ std::vector<std::tuple<Assignment, Student, Grade>> GradeBook::getGrades() const
 		// Get assignment
 		const std::string &assignmentID = entry.first.first;
 		if (!this->assignments.count(assignmentID))
-			throw GBResourceNotFoundException("Assignment with ID " + assignmentID + " was not found! Perhaps it has not been loaded into the database?");
+			throw GBResourceNotFoundException("Assignment", assignmentID);
 
 		Assignment assignment = this->assignments.at(assignmentID);
 
 		// Get student
 		const std::string &studentID = entry.first.second;
 		if (!this->students.count(studentID))
-			throw GBResourceNotFoundException("Student with ID " + studentID + " was not found! Perhaps it has not been loaded into the database?");
+			throw GBResourceNotFoundException("Student", studentID);
 
 		Student student = this->students.at(studentID);
 		values.push_back(std::make_tuple(assignment, student, entry.second));
@@ -241,7 +241,7 @@ std::vector<std::pair<Assignment, Grade>> GradeBook::getStudentGrades(const std:
 
 		const std::string &assignmentID = entry.first.first;
 		if (!this->assignments.count(assignmentID))
-			throw GBResourceNotFoundException("Assignment with ID " + assignmentID + " was not found! Perhaps it has not been loaded into the database?");
+			throw GBResourceNotFoundException("Assignment", assignmentID);
 
 		Assignment assignment = this->assignments.at(assignmentID);
 		matchingGrades.push_back(std::make_pair(assignment, entry.second));
@@ -261,7 +261,7 @@ std::vector<std::pair<Student, Grade>> GradeBook::getAssignmentGrades(const std:
 
 		const std::string &studentID = entry.first.second;
 		if (!this->students.count(studentID))
-			throw GBResourceNotFoundException("Student with ID " + studentID + " was not found! Perhaps it has not been loaded into the database?");
+			throw GBResourceNotFoundException("Student", studentID);
 
 		Student student = this->students.at(studentID);
 		matchingGrades.push_back(std::make_pair(student, entry.second));

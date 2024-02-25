@@ -4,7 +4,7 @@
 GradeBookException::GradeBookException(const std::string &message)
     : std::exception(), message(message)
 {
-	std::cerr << "GradeBookException: " << message << std::endl;
+    std::cerr << "GradeBookException: " << message << std::endl;
 }
 
 char const *GradeBookException::what() const noexcept

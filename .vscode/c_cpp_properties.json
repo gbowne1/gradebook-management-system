@@ -4,19 +4,19 @@
 			"name": "linux-gcc-x64",
 			"includePath": [
 				"${workspaceFolder}/gradebook/include/**",
+				"${workspaceFolder}/tests/include/**",
 				"${workspaceFolder}/build/_deps/**",
 				"/usr/include/**",
 				"/usr/local/include/**"
 			],
 			"cStandard": "c11",
-			"cppStandard": "c++11",
+			"cppStandard": "c++14",
 			"intelliSenseMode": "linux-gcc-x86",
 			"compilerArgs": [
 				"-Wall",
 				"-Werror",
 				"-Wextra",
-				"-pedantic",
-				
+				"-pedantic"
 			]
 		}
 	],
