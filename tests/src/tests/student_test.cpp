@@ -35,6 +35,8 @@ TEST_F(StudentTestFixture, SaveStudents)
     DataFrame df;
     df.load(fileName);
     validateStudentsDataFrame(df);
+
+    EXPECT_EQ(remove(fileName.c_str()), 0);
 }
 
 TEST_F(StudentTestFixture, PrintStudents)
