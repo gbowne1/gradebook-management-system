@@ -2,7 +2,6 @@
 #define STUDENT_TEST_FIXTURE_H
 
 #include <gtest/gtest.h>
-#include <memory>
 
 #include "gradebook.h"
 #include "dataframe.h"
@@ -13,7 +12,7 @@ protected:
     StudentTestFixture();
     virtual ~StudentTestFixture() = default;
 
-    std::unique_ptr<GradeBook> gradebook;
+    GradeBook gradebook;
 };
 
 #endif

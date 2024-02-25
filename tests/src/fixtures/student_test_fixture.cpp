@@ -7,6 +7,5 @@
 StudentTestFixture::StudentTestFixture()
 {
     const std::string fileName = "assets/studentdata.csv";
-    this->gradebook = std::make_unique<GradeBook>();
-    this->gradebook->loadStudents(fileName);
+    this->gradebook.loadStudents(fileName);
 }

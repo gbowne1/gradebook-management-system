@@ -23,14 +23,14 @@ void validateStudentsDataFrame(DataFrame &df)
 
 TEST_F(StudentTestFixture, LoadStudents)
 {
-    DataFrame df = this->gradebook->studentsToDataFrame();
+    DataFrame df = this->gradebook.studentsToDataFrame();
     validateStudentsDataFrame(df);
 }
 
 TEST_F(StudentTestFixture, SaveStudents)
 {
     const std::string fileName = "saved_students.csv";
-    this->gradebook->saveStudents(fileName);
+    this->gradebook.saveStudents(fileName);
 
     DataFrame df;
     df.load(fileName);
@@ -40,7 +40,7 @@ TEST_F(StudentTestFixture, SaveStudents)
 TEST_F(StudentTestFixture, PrintStudents)
 {
     testing::internal::CaptureStdout();
-    this->gradebook->studentsToDataFrame().print();
+    this->gradebook.studentsToDataFrame().print();
     const std::string output = testing::internal::GetCapturedStdout();
 
     const std::string expectedResult =
@@ -63,19 +63,19 @@ TEST_F(StudentTestFixture, PrintStudents)
 
 TEST_F(StudentTestFixture, QueryOneStudent)
 {
-    Student student = this->gradebook->getStudent("1");
+    Student student = this->gradebook.getStudent("1");
 
     EXPECT_EQ(student.name, "John Doe");
     EXPECT_EQ(student.gradeLevel, 12);
     EXPECT_EQ(student.gpa, (float)3.8);
 
-    student = this->gradebook->getStudent("2");
+    student = this->gradebook.getStudent("2");
 
     EXPECT_EQ(student.name, "Luke Sutton");
     EXPECT_EQ(student.gradeLevel, 12);
     EXPECT_EQ(student.gpa, (float)4.7);
 
-    student = this->gradebook->getStudent("3");
+    student = this->gradebook.getStudent("3");
 
     EXPECT_EQ(student.name, "Jayden Gibson");
     EXPECT_EQ(student.gradeLevel, 12);
@@ -84,7 +84,7 @@ TEST_F(StudentTestFixture, QueryOneStudent)
 
 TEST_F(StudentTestFixture, QueryAllStudents)
 {
-    std::vector<Student> students = this->gradebook->getStudents();
+    std::vector<Student> students = this->gradebook.getStudents();
 
     EXPECT_EQ(students[0].name, "John Doe");
     EXPECT_EQ(students[0].gradeLevel, 12);
