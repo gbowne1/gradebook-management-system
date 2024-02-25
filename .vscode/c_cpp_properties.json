@@ -15,8 +15,7 @@
 				"-Wall",
 				"-Werror",
 				"-Wextra",
-				"-pedantic",
-				
+				"-pedantic"
 			]
 		}
 	],
