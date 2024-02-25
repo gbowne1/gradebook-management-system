@@ -2,8 +2,6 @@
 
 #include "gradebook.h"
 
-#include <memory>
-
 StudentTestFixture::StudentTestFixture()
 {
     const std::string fileName = "assets/studentdata.csv";
