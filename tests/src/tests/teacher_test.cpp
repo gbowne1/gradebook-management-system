@@ -15,7 +15,7 @@ void validateTeachersDataFrame(DataFrame &df)
     EXPECT_EQ(df["name"][2], "Ollie Perry");
 }
 
-TEST_F(TeacherTestFixture, Loadteachers)
+TEST_F(TeacherTestFixture, LoadTeachers)
 {
     DataFrame df = this->gradebook.teachersToDataFrame();
     validateTeachersDataFrame(df);
