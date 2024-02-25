@@ -10,7 +10,7 @@
 				"/usr/local/include/**"
 			],
 			"cStandard": "c11",
-			"cppStandard": "c++11",
+			"cppStandard": "c++14",
 			"intelliSenseMode": "linux-gcc-x86",
 			"compilerArgs": [
 				"-Wall",
