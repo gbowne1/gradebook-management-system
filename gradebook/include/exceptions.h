@@ -4,7 +4,6 @@
 #include <exception>
 #include <string>
 
-
 class GradeBookException : public std::exception
 {
 public:
