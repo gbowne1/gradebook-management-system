@@ -1,0 +1,6 @@
+student_id,date,attendance_status,late_arrival,early_departure,excused_absence,comments,teacher_name,period,parent_notified,tardy
+1,2023-12-01,P,,A,,Student had a doctor's appointment.,Mr. Smith,1,Yes,
+2,2023-12-01,A,,,AA,Student provided a valid excuse.,Ms. Johnson,1,Yes,
+3,2023-12-01,P,,,A,,Mr. Lee,2,Yes,
+4,2023-12-01,P,,A,,Student had a family emergency.,Mrs. Brown,2,Yes,
+5,2023-12-01,P,,,A,,Mr. Davis,3,Yes,Yes
