@@ -93,6 +93,11 @@ struct PermissionScopeHash
 	}
 };
 
+/**
+ * Class User
+ *
+ * This class represents an user interacting with the system.
+ */
 class User
 {
 private:
@@ -120,9 +125,35 @@ public:
 	User(const std::string &userId);
 	virtual ~User() = default;
 
+	/**
+	 * Checks if the user has the necessary permissions given a scope.
+	 *
+	 * @param permission Action to be checked
+	 * @param scope Target scope of the resource
+	 * @returns Whether the user has permission to perform the given action in the given scope or not
+	 */
 	bool hasPermission(Permission permission, Scope scope);
+
+	/**
+	 * Adds a resource that is owned by the user.
+	 *
+	 * @param resourceId ID of the resource
+	 */
 	void addOwnedResource(const std::string &resourceId);
+
+	/**
+	 * Checks if the user owns a given resource.
+	 *
+	 * @param resource Resource to be checked
+	 * @returns Whether the user owns the resource
+	 */
 	bool ownsResource(std::shared_ptr<Resource> resource);
+
+	/**
+	 * Gets the scope of the user.
+	 *
+	 * @returns User scope
+	 */
 	Scope getUserScope() const;
 };
 
