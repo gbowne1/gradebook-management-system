@@ -62,7 +62,7 @@ public:
      */
     size_t sizeCols();
 
-	bool hasColumn(const std::string &columnName) const;
+    bool hasColumn(const std::string &columnName) const;
 
     /**
      * Erases all data in the DataFrame

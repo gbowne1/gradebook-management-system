@@ -66,12 +66,13 @@ enum Scope
 
 struct PermissionScope
 {
-    Permission permission;
-    Scope scope;
+	Permission permission;
+	Scope scope;
 
-    bool operator==(const PermissionScope& other) const {
-        return permission == other.permission && scope == other.scope;
-    }
+	bool operator==(const PermissionScope &other) const
+	{
+		return permission == other.permission && scope == other.scope;
+	}
 };
 // Each resource can handle how it is owned by an user
 // Resources and users are referenced with shared_ptr in order to handle inheritance
@@ -86,29 +87,30 @@ public:
 // Define a hash function for PermissionScope
 struct PermissionScopeHash
 {
-    std::size_t operator()(const PermissionScope &ps) const
-    {
-        return std::hash<int>()(static_cast<int>(ps.permission)) ^ std::hash<int>()(static_cast<int>(ps.scope));
-    }
+	std::size_t operator()(const PermissionScope &ps) const
+	{
+		return std::hash<int>()(static_cast<int>(ps.permission)) ^ std::hash<int>()(static_cast<int>(ps.scope));
+	}
 };
 
 class User
 {
 private:
-
-	bool isAdmin() const {
-        // Add logic to check if the user is an administrator
-        // For example, you might check if the user has an 'admin' role
-        // Return true if the user is an administrator, false otherwise
+	bool isAdmin() const
+	{
+		// Add logic to check if the user is an administrator
+		// For example, you might check if the user has an 'admin' role
+		// Return true if the user is an administrator, false otherwise
 		return false;
 	}
 
-    bool isTeacher() const {
-        // Add logic to check if the user is a teacher
-        // For example, you might check if the user has a 'teacher' role
-        // Return true if the user is a teacher, false otherwise
+	bool isTeacher() const
+	{
+		// Add logic to check if the user is a teacher
+		// For example, you might check if the user has a 'teacher' role
+		// Return true if the user is a teacher, false otherwise
 		return false;
-    }
+	}
 
 	std::unordered_set<PermissionScope, PermissionScopeHash> permissionScopes; // Use custom hash function
 	std::string userId;
