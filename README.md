@@ -53,7 +53,21 @@ cd gradebook
 
 ## Generating the documentation
 
-Documentation is not available for this project yet.
+The documentation can be generated with Doxygen in the HTML and LaTeX formats. In order to do so, you must first install Doxygen and Graphviz:
+```sh
+# Ubuntu 22.04
+sudo apt-add-repository universe
+sudo apt-get update
+sudo apt-get install doxygen
+sudo apt-get install graphviz
+```
+
+Then run Doxygen:
+```sh
+doxygen doxygen.conf
+```
+
+Two folders named `html` and `latex` should appear.
 
 ## Running the tests
 
