@@ -4,7 +4,7 @@
 #include <unordered_set>
 
 User::User(const std::string &userId)
-	: userId(userId), ownedResourceIds() // Initialize ownedResourceIds
+		: userId(userId), ownedResourceIds() // Initialize ownedResourceIds
 {
 }
 
@@ -34,7 +34,7 @@ bool User::hasPermission(Permission permission, Scope scope)
 	{
 		return false;
 	}
-	//TODO Add a check if the user has the permission with the correct scope
+	// TODO Add a check if the user has the permission with the correct scope
 	return true;
 }
 

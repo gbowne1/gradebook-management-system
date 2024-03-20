@@ -91,7 +91,8 @@ void DataFrame::append(const std::map<std::string, std::string> &row)
 
 void DataFrame::remove(size_t index)
 {
-	if (index >= this->sizeRows()) {
+    if (index >= this->sizeRows())
+    {
         throw std::out_of_range("Index out of range in DataFrame::remove");
     }
 
@@ -184,7 +185,8 @@ int DataFrame::load(const std::string &fileName)
 {
     std::ifstream ifs(fileName);
 
-    if (!ifs.is_open()) {
+    if (!ifs.is_open())
+    {
         throw std::runtime_error("Failed to open file: " + fileName);
     }
 
