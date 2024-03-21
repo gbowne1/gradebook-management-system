@@ -1,13 +1,43 @@
 {
+	// General C/C++ settings
+	"C_Cpp.autoAddFileAssociations": true,
+	"C_Cpp.autocompleteAddParentheses": true,
+	"C_Cpp.clang_format_sortIncludes": true,
+	"C_Cpp.codeAnalysis.clangTidy.enabled": true,
+	"C_Cpp.configurationWarnings": "enabled",
+	"C_Cpp.default.browse.limitSymbolsToIncludedHeaders": false,
+	"C_Cpp.default.cStandard": "c11",
+	"C_Cpp.default.compilerPath": "/usr/bin",
+	"C_Cpp.default.cppStandard": "c++11",
+	"C_Cpp.default.enableConfigurationSquiggles": true,
+	"C_Cpp.errorSquiggles": "enabledIfIncludesResolve",
+	"C_Cpp.formatting": "default",
+	"C_Cpp.loggingLevel": "Error",
+	"C_Cpp.vcFormat.indent.caseContentsWhenBlock": true,
+	"C_Cpp.vcFormat.indent.namespaceContents": false,
+	"C_Cpp.vcFormat.indent.preserveComments": true,
+	"C_Cpp.vcFormat.space.pointerReferenceAlignment": "right",
+	// CMake integration settings
+	"cmake.autoSelectActiveFolder": false,
+	"cmake.configureOnEdit": false,
+	"cmake.configureOnOpen": false,
+	"cmake.cmakePath": "/usr/bin/cmake",
+	"cmake.sourceDirectory": "${workspaceFolder}/",
+	// Language-specific settings
+	"[c]": {
+		"editor.defaultFormatter": "ms-vscode.cpptools",
+		"editor.formatOnSave": true
+	},
 	"[cpp]": {
 		"editor.defaultFormatter": "ms-vscode.cpptools",
 		"editor.formatOnSave": true
 	},
+	// File associations
 	"files.associations": {
-		"*.c": "c",
-		"*.h": "cpp",
-		"*.hpp": "cpp",
+		"*.c": "C",
 		"*.cpp": "cpp",
+		"*.h": "C",
+		"*.hpp": "cpp",
 		"map": "cpp",
 		"cctype": "cpp",
 		"clocale": "cpp",
@@ -78,4 +108,23 @@
 		"thread": "cpp",
 		"semaphore": "cpp"
 	},
+	"workbench.editorAssociations": {
+		"*.c": "default",
+		"*.cpp": "default",
+		"*.h": "default",
+		"*.hpp": "default"
+	},
+	// IntelliSense configuration
+	"C_Cpp.default.includePath": [
+		"${workspaceFolder}/**",
+		"${workspaceFolder}/StarshipAscension/include"
+	],
+	"C_Cpp.default.defines": [],
+	"C_Cpp.default.compileCommands": "build/compile_commands.json",
+	"C_Cpp.default.browse.path": [
+		"${workspaceFolder}/src/include"
+	],
+	"C_Cpp.default.browse.databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db",
+	"C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+	"C_Cpp.default.intelliSenseMode": "linux-gcc-x86",
 }
