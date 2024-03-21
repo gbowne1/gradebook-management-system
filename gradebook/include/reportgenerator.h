@@ -10,7 +10,7 @@
 #include <string>
 
 // Function declarations
-void generateReportCard(const std::string& studentName, const std::string& grade, const std::string& teacherComments);
-void generateReport(const std::string& reportTitle, const std::string& content);
+void generateReportCard(const std::string &studentName, const std::string &grade, const std::string &teacherComments);
+void generateReport(const std::string &reportTitle, const std::string &content);
 
 #endif // REPORT_GENERATOR_H
