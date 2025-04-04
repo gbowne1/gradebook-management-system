@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <stdexcept>
 
 DataFrame::DataFrame() {}
 
@@ -25,7 +26,12 @@ std::map<std::string, std::string *> DataFrame::operator[](size_t index)
 
 std::vector<std::string> &DataFrame::operator[](const std::string &key)
 {
-    return this->data[key];
+    auto it = this->data.find(key);
+    if (it == this->data.end())
+    {
+        throw std::out_of_range("Key not found in DataFrame");
+    }
+    return it->second;
 }
 
 size_t DataFrame::sizeRows()
@@ -50,10 +56,10 @@ void DataFrame::clear()
 
 void DataFrame::initialize(const std::vector<std::string> &header)
 {
-    if (this->header.size() > 0)
+    if (!this->header.empty())
         this->header.clear();
 
-    if (this->data.size() > 0)
+    if (!this->data.empty())
         this->data.clear();
 
     for (const std::string &label : header)
@@ -65,7 +71,7 @@ void DataFrame::initialize(const std::vector<std::string> &header)
 
 void DataFrame::append(const std::map<std::string, std::string> &row)
 {
-    if (!this->header.size())
+    if (this->header.empty())
     {
         std::vector<std::string> header;
         for (const auto &it : row)
@@ -91,7 +97,7 @@ void DataFrame::append(const std::map<std::string, std::string> &row)
 
 void DataFrame::remove(size_t index)
 {
-    if (index >= this->sizeRows())
+    if (index >= this->sizeCols())
     {
         throw std::out_of_range("Index out of range in DataFrame::remove");
     }
@@ -126,41 +132,39 @@ std::vector<size_t> DataFrame::getMaxColumnSizes()
     return columnSizes;
 }
 
+void DataFrame::printLine(std::ostream &out, size_t lineWidth)
+{
+    for (size_t i = 0; i < lineWidth; i++)
+        out << "-";
+    out << std::endl;
+}
+
 void DataFrame::print(std::ostream &out)
 {
-    if (!this->header.size())
+    if (this->header.empty())
         return;
 
-    // Get column sizes
     std::vector<size_t> columnSizes = this->getMaxColumnSizes();
 
-    // Print line
     size_t lineWidth = 1 + 3 * columnSizes.size();
     for (size_t columnSize : columnSizes)
         lineWidth += columnSize;
 
-    for (int i = 0; i < lineWidth; i++)
-        out << "-";
-    out << std::endl;
+    printLine(out, lineWidth);
 
-    // Print header
     out << "| ";
-    for (int i = 0; i < this->header.size(); i++)
+    for (size_t i = 0; i < this->header.size(); i++)
     {
         out << std::setw(columnSizes[i]) << this->header[i] << " | ";
     }
 
-    // Print line
     out << std::endl;
-    for (int i = 0; i < lineWidth; i++)
-        out << "-";
-    out << std::endl;
+    printLine(out, lineWidth);
 
-    // Print data
-    for (int i = 0; i < this->data[this->header[0]].size(); i++)
+    for (size_t i = 0; i < this->data[this->header[0]].size(); i++)
     {
         out << "| ";
-        for (int j = 0; j < this->header.size(); j++)
+        for (size_t j = 0; j < this->header.size(); j++)
         {
             const std::string &key = this->header[j];
             out << std::setw(columnSizes[j]) << this->data[key][i] << " | ";
@@ -169,17 +173,8 @@ void DataFrame::print(std::ostream &out)
         out << std::endl;
     }
 
-    // Print line
-    for (int i = 0; i < lineWidth; i++)
-        out << "-";
-    out << std::endl;
+    printLine(out, lineWidth);
 }
-
-/**
- * Loads data from a CSV file into the DataFrame.
- * @param fileName The name of the CSV file.
- * @return  0 on success,  1 on failure (e.g., file not found).
- */
 
 int DataFrame::load(const std::string &fileName)
 {
@@ -187,7 +182,7 @@ int DataFrame::load(const std::string &fileName)
 
     if (!ifs.is_open())
     {
-        throw std::runtime_error("Failed to open file: " + fileName);
+        return 1; // Failed to open file
     }
 
     std::string line, cell;
@@ -217,35 +212,31 @@ int DataFrame::load(const std::string &fileName)
 
 int DataFrame::save(const std::string &fileName)
 {
-    if (!this->header.size())
+    if (this->header.empty())
         return 1;
 
     std::ofstream ofs(fileName);
-    for (const std::string &key : this->header)
+    for (size_t i = 0; i < this->header.size(); i++)
     {
-        // Check if key is the last one in header
-        if (key == this->header[this->header.size() - 1])
+        ofs << this->header[i];
+        if (i != this->header.size() - 1)
         {
-            ofs << key << std::endl;
-            continue;
+            ofs << ",";
         }
-
-        ofs << key << ",";
     }
+    ofs << std::endl;
 
     for (size_t i = 0; i < this->sizeCols(); i++)
     {
-        for (const std::string &key : this->header)
+        for (size_t j = 0; j < this->header.size(); j++)
         {
-            // Check if key is the last one in header
-            if (key == this->header[this->header.size() - 1])
+            ofs << this->data[this->header[j]][i];
+            if (j != this->header.size() - 1)
             {
-                ofs << this->data[key][i] << std::endl;
-                continue;
+                ofs << ",";
             }
-
-            ofs << this->data[key][i] << ",";
         }
+        ofs << std::endl;
     }
 
     return 0;
